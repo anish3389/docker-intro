@@ -1,0 +1,25 @@
+services:
+  proxy:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    networks:
+      localnet:
+        ipv4_address: 10.0.0.6
+    ports:
+      - 9080:80
+
+  backend:
+    build:
+      context: .
+      dockerfile: node/Dockerfile
+    networks:
+      localnet:
+        ipv4_address: 10.0.0.7
+
+networks:
+  localnet:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.0.0.0/16
